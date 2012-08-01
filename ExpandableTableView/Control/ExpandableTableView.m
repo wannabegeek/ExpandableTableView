@@ -554,6 +554,7 @@
 }
 
 - (NSIndexSet *)_deleteRowsAtIndexPaths:(NSArray *)indexPaths withRowAnimation:(UITableViewRowAnimation)animation {
+	
 	NSMutableArray *correctedIndexPaths = [NSMutableArray array];
 	NSMutableIndexSet *reloadIndexPaths = [NSMutableIndexSet indexSet];
 	for (NSIndexPath *indexPath in indexPaths) {
@@ -578,7 +579,10 @@
 			}
 		}
 	}
-	[super deleteRowsAtIndexPaths:correctedIndexPaths withRowAnimation:animation];
+	if ([correctedIndexPaths count]) {
+		[super deleteRowsAtIndexPaths:correctedIndexPaths withRowAnimation:animation];
+		NSLog(@"Removing %d rows", [correctedIndexPaths count]);
+	}
 
 	return reloadIndexPaths;
 }
